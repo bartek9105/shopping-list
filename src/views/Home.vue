@@ -1,5 +1,7 @@
 <template>
-	<h1>Shopping list app</h1>
+	<div>
+		Home content
+	</div>
 </template>
 
 <script>

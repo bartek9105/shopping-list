@@ -1,7 +1,21 @@
 <template>
-	<div id="app">
-		<router-view />
-	</div>
+	<v-app>
+		<v-app-bar app color="primary" dark>
+			<div class="d-flex align-center">
+				Shopping list app
+			</div>
+
+			<v-spacer></v-spacer>
+		</v-app-bar>
+
+		<v-main>
+			<router-view />
+		</v-main>
+	</v-app>
 </template>
 
-<style lang="scss"></style>
+<script>
+export default {
+	name: 'App'
+}
+</script>
