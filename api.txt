@@ -1,0 +1,5 @@
+curl -H "X-API-Key: ff64ad20" https://my.api.mockaroo.com/categories.json
+https://my.api.mockaroo.com/lists.json
+https://my.api.mockaroo.com/lists/1.json
+https://my.api.mockaroo.com/products.json
+https://my.api.mockaroo.com/products/1.json
