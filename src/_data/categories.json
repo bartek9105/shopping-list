@@ -1,0 +1,25 @@
+[{
+  "id": 1,
+  "name": "fruits"
+}, {
+  "id": 2,
+  "name": "vegetables"
+}, {
+  "id": 3,
+  "name": "beverages"
+}, {
+  "id": 4,
+  "name": "spices"
+}, {
+  "id": 5,
+  "name": "dairy"
+}, {
+  "id": 6,
+  "name": "meat"
+}, {
+  "id": 7,
+  "name": "fish"
+}, {
+  "id": 8,
+  "name": "bread"
+}]
