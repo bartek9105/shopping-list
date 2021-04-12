@@ -2,9 +2,14 @@
 	<v-app>
 		<v-app-bar app color="primary" dark>
 			<div class="d-flex align-center">
-				Shopping list app
+				<span class="mr-2">Shopping list app</span>
+				<router-link :to="{ name: 'Categories' }" class="white--text mr-2"
+					>Categories</router-link
+				>
+				<router-link :to="{ name: 'Products' }" class="white--text mr-2"
+					>Products</router-link
+				>
 			</div>
-
 			<v-spacer></v-spacer>
 		</v-app-bar>
 
