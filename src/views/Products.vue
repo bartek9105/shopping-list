@@ -1,40 +1,32 @@
 <template>
-	<form id="shopping-list">
-		<h2>Products List</h2>
-		<table id="shopping-list-table" class="table table-condensed table-hover">
-			<thead>
-				<tr>
-					<th>Category</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tr v-for="(item, index) in items" :key="index">
-				<td>
-					<span>{{ item.name }}</span>
-				</td>
-				<td>
-					<button
-						type="button"
-						class="btn btn-danger"
-						@click="removeItem(index)"
-					>
-						<i class="fa fa-remove"></i> Delete
-					</button>
-				</td>
-			</tr>
-		</table>
-
-		<h4>Add new item</h4>
-		<div class="row col-md-6">
-			<div class="form-check">
-				<input type="text" v-model="name" class="checkbox" />
-			</div>
-
-			<button type="button" @click="addItem" class="btn btn-primary">
-				<i class="fa fa-plus"></i> Add
-			</button>
-		</div>
-	</form>
+	<v-row class="justify-center">
+		<v-col xs="12" md="6">
+			<v-simple-table class="py-6">
+				<template v-slot:default>
+					<thead>
+						<tr>
+							<th class="text-left">
+								Name
+							</th>
+							<th class="text-left">
+								Action
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(product, index) in products" :key="index">
+							<td>{{ product.name }}</td>
+							<td>
+								<v-btn small color="primary" dark @click="deleteProduct(index)">
+									Delete product
+								</v-btn>
+							</td>
+						</tr>
+					</tbody>
+				</template>
+			</v-simple-table>
+		</v-col>
+	</v-row>
 </template>
 
 <script>
@@ -44,31 +36,29 @@ export default {
 	name: 'Products',
 	data() {
 		return {
-			name: '',
-			itemCategories: [],
-			items: []
+			product: {
+				name: '',
+				description: ''
+			},
+			products: []
 		}
 	},
-	mounted: function() {
+	mounted() {
 		axios
-			.get('https://my.api.mockaroo.com/categories.json?key=ff64ad20')
+			.get('https://my.api.mockaroo.com/products.json?key=ff64ad20')
 			.then((response) => {
-				this.itemCategories = response.data
-				console.log(response)
+				this.products = response.data
 			})
 			.catch((error) => {
 				console.log(error)
 			})
 	},
 	methods: {
-		addItem: function() {
-			var nameIN = this.name.trim()
-			this.items.push({
-				name: nameIN
-			})
+		addProduct() {
+			this.products.push(this.product)
 		},
-		removeItem: function(index) {
-			this.items.splice(index, 1)
+		deleteProduct(index) {
+			this.products.splice(index, 1)
 		}
 	}
 }
