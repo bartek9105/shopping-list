@@ -25,6 +25,9 @@
 					</tbody>
 				</template>
 			</v-simple-table>
+			<v-snackbar v-model="showSnackbar" timeout="2000">
+				{{ snackbarText }}
+			</v-snackbar>
 		</v-col>
 	</v-row>
 </template>
@@ -40,7 +43,9 @@ export default {
 				name: '',
 				description: ''
 			},
-			products: []
+			products: [],
+			showSnackbar: false,
+			snackbarText: ''
 		}
 	},
 	mounted() {
@@ -59,6 +64,8 @@ export default {
 		},
 		deleteProduct(index) {
 			this.products.splice(index, 1)
+			this.snackbarText = 'Product deleted'
+			this.showSnackbar = true
 		}
 	}
 }
