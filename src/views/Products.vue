@@ -1,59 +1,70 @@
 <template>
 	<div>
-		<v-row class="justify-center mt-4">
-			<v-col xs="12" md="6">
-				<div class="d-flex justify-space-between align-center">
-					<div class="d-flex align-center">
-						<h2 class="mr-4">Your products</h2>
-						<span>({{ products.length }})</span>
-					</div>
+		<v-row class="justify-center mt-4 px-4">
+			<v-col xs="12" sm="8" md="6">
+				<div class="d-flex align-center">
+					<h2 class="mr-4">Your products</h2>
+					<span>({{ products.length }})</span>
+				</div>
+				<div class="d-flex align-center">
+					<v-text-field
+						label="Filter products"
+						class="mr-4"
+						v-model="searchQuery"
+					></v-text-field>
 					<v-btn color="success" @click="showSidebar = true">
 						Add product
 					</v-btn>
 				</div>
+			</v-col>
+		</v-row>
+		<v-row class="justify-center">
+			<v-col xs="12" sm="8" md="6">
 				<v-progress-circular
 					indeterminate
 					color="primary"
 					class="mt-4"
 					v-if="isLoading"
 				></v-progress-circular>
-				<v-simple-table class="py-6" v-else>
-					<template v-slot:default>
-						<thead>
-							<tr>
-								<th class="text-left">
-									Name
-								</th>
-								<th class="text-left">
-									Action
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="(product, index) in products" :key="index">
-								<td>
-									{{ product.name }}
-									<v-chip class="ma-2" color="success" outlined>
-										{{ product.category[0].name }}
-									</v-chip>
-								</td>
-								<td>
-									<v-btn
-										small
-										color="primary"
-										dark
-										@click="deleteProduct(index)"
-									>
-										Delete
-									</v-btn>
-								</td>
-							</tr>
-						</tbody>
-					</template>
-				</v-simple-table>
-				<v-snackbar v-model="showSnackbar" timeout="2000">
-					{{ snackbarText }}
-				</v-snackbar>
+				<div v-else>
+					<v-simple-table class="py-6" v-if="filteredProducts.length > 0">
+						<template v-slot:default>
+							<thead>
+								<tr>
+									<th class="text-left">
+										Name
+									</th>
+									<th class="text-left">
+										Action
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(product, index) in filteredProducts" :key="index">
+									<td>
+										{{ product.name }}
+										<v-chip class="ma-2" color="success" outlined>
+											{{ product.category[0].name }}
+										</v-chip>
+									</td>
+									<td>
+										<v-btn
+											small
+											color="primary"
+											dark
+											@click="deleteProduct(index)"
+										>
+											Delete
+										</v-btn>
+									</td>
+								</tr>
+							</tbody>
+						</template>
+					</v-simple-table>
+					<div class="mt-4" v-else>
+						No products found with specified criteria
+					</div>
+				</div>
 			</v-col>
 		</v-row>
 		<add-product-sidebar
@@ -62,6 +73,9 @@
 			@newProduct="addProduct"
 			@closeSidebar="showSidebar = false"
 		/>
+		<v-snackbar v-model="showSnackbar" timeout="2000">
+			{{ snackbarText }}
+		</v-snackbar>
 	</div>
 </template>
 
@@ -81,12 +95,13 @@ export default {
 			snackbarText: '',
 			isLoading: true,
 			showSidebar: false,
-			categories: []
+			categories: [],
+			searchQuery: ''
 		}
 	},
 	mounted() {
 		axios
-			.get('https://my.api.mockaroo.com/products.json?key=ff64ad20')
+			.get('products.json')
 			.then((response) => {
 				this.products = response.data
 				this.isLoading = false
@@ -95,7 +110,7 @@ export default {
 				console.log(error)
 			})
 		axios
-			.get('https://my.api.mockaroo.com/categories.json?key=ff64ad20')
+			.get('categories.json')
 			.then((response) => {
 				this.categories = response.data
 			})
@@ -114,6 +129,13 @@ export default {
 			this.products.splice(index, 1)
 			this.snackbarText = 'Product deleted'
 			this.showSnackbar = true
+		}
+	},
+	computed: {
+		filteredProducts() {
+			return this.products.filter((product) =>
+				product.name.match(new RegExp(`^${this.searchQuery}`, 'gi'))
+			)
 		}
 	}
 }
