@@ -1,17 +1,20 @@
 <template>
 	<div>
-		<v-row class="justify-center">
+		<v-row class="justify-center mt-4">
 			<v-col xs="12" md="6">
-				<v-btn
-					color="success"
-					class="mt-6 d-flex justify-end"
-					@click="showSidebar = true"
-				>
-					Add product
-				</v-btn>
+				<div class="d-flex justify-space-between align-center">
+					<div class="d-flex align-center">
+						<h2 class="mr-4">Your products</h2>
+						<span>({{ products.length }})</span>
+					</div>
+					<v-btn color="success" @click="showSidebar = true">
+						Add product
+					</v-btn>
+				</div>
 				<v-progress-circular
 					indeterminate
 					color="primary"
+					class="mt-4"
 					v-if="isLoading"
 				></v-progress-circular>
 				<v-simple-table class="py-6" v-else>
@@ -28,7 +31,12 @@
 						</thead>
 						<tbody>
 							<tr v-for="(product, index) in products" :key="index">
-								<td>{{ product.name }}</td>
+								<td>
+									{{ product.name }}
+									<v-chip class="ma-2" color="success" outlined>
+										{{ product.category[0].name }}
+									</v-chip>
+								</td>
 								<td>
 									<v-btn
 										small
@@ -36,7 +44,7 @@
 										dark
 										@click="deleteProduct(index)"
 									>
-										Delete product
+										Delete
 									</v-btn>
 								</td>
 							</tr>
@@ -48,7 +56,12 @@
 				</v-snackbar>
 			</v-col>
 		</v-row>
-		<add-product-sidebar :show-sidebar="showSidebar" :categories="categories" />
+		<add-product-sidebar
+			v-if="showSidebar"
+			:categories="categories"
+			@newProduct="addProduct"
+			@closeSidebar="showSidebar = false"
+		/>
 	</div>
 </template>
 
@@ -63,10 +76,6 @@ export default {
 	},
 	data() {
 		return {
-			product: {
-				name: '',
-				description: ''
-			},
 			products: [],
 			showSnackbar: false,
 			snackbarText: '',
@@ -95,8 +104,11 @@ export default {
 			})
 	},
 	methods: {
-		addProduct() {
-			this.products.push(this.product)
+		addProduct(product) {
+			this.products.unshift(product)
+			this.showSidebar = false
+			this.snackbarText = 'Product added'
+			this.showSnackbar = true
 		},
 		deleteProduct(index) {
 			this.products.splice(index, 1)
