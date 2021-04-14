@@ -2,19 +2,20 @@
 	<div>
 		<v-row class="justify-center mt-4 px-4">
 			<v-col xs="12" sm="8" md="6">
-				<div class="d-flex align-center">
-					<h2 class="mr-4">Your products</h2>
-					<span>({{ products.length }})</span>
-				</div>
-				<div class="d-flex align-center">
-					<v-text-field
-						label="Filter products"
-						class="mr-4"
-						v-model="searchQuery"
-					></v-text-field>
+				<div class="d-flex justify-space-between align-center">
+					<div class="d-flex align-items">
+						<h2 class="mr-4">Your products ({{ products.length }})</h2>
+					</div>
 					<v-btn color="success" @click="showSidebar = true">
 						Add product
 					</v-btn>
+				</div>
+				<div class="d-flex align-center">
+					<v-text-field
+						label="Enter product name to filter products list"
+						class="mr-4"
+						v-model="searchQuery"
+					></v-text-field>
 				</div>
 			</v-col>
 		</v-row>
