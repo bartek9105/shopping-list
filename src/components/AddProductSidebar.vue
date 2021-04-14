@@ -29,12 +29,15 @@
 						></v-select>
 					</v-col>
 				</v-row>
-				<v-btn color="success" class="mt-4 mr-4" @click="addNewProduct"
-					>Add</v-btn
-				>
-				<v-btn color="white" class="mt-4" @click="sidebar = false"
-					>Cancel</v-btn
-				>
+				<span v-if="error" class="red--text">{{ error }}</span>
+				<div>
+					<v-btn color="success" class="mt-4 mr-4" @click="addNewProduct"
+						>Add</v-btn
+					>
+					<v-btn color="white" class="mt-4" @click="sidebar = false"
+						>Cancel</v-btn
+					>
+				</div>
 			</v-container>
 		</v-form>
 	</v-navigation-drawer>
@@ -60,13 +63,21 @@ export default {
 					}
 				]
 			},
-			sidebar: true
+			sidebar: true,
+			error: ''
 		}
 	},
 	methods: {
 		addNewProduct() {
-			this.$emit('newProduct', this.product)
-			this.product = { category: [{ name: '' }] }
+			if (
+				this.product.name !== '' &&
+				this.product.description !== '' &&
+				this.product.category[0].name !== ''
+			) {
+				this.$emit('newProduct', this.product)
+				this.product = { category: [{ name: '' }] }
+			}
+			this.error = 'All fields are required'
 		}
 	},
 	computed: {
