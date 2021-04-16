@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Categories from '../views/Categories.vue'
 import Products from '../views/Products.vue'
+import Lists from '../views/Lists.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/products',
     name: 'Products',
     component: Products
+  },
+  {
+    path: '/lists',
+    name: 'Lists',
+    component: Lists
   }
 ]
 
