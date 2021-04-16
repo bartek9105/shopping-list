@@ -36,7 +36,6 @@
                                         <v-card-title>
                                             <v-text-field
                                                 v-model="list.name"
-                                                :rules="rules"
                                                 counter="50"
                                                 hint="Change list name"
                                                 label="List name"
@@ -138,7 +137,8 @@
             return {
                 lists: [],
                 products: [],
-                selectedProduct: {}
+                selectedProduct: {},
+                isLoading: true
             }
         },
         methods:{
