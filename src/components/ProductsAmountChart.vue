@@ -1,9 +1,9 @@
 <script>
-import { Line } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs'
 
 export default {
 	name: 'ProductsAmountChart',
-	extends: Line,
+	extends: Bar,
 	props: {
 		lists: {
 			type: Array,

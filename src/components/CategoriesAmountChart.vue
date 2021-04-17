@@ -1,9 +1,9 @@
 <script>
-import { Line } from 'vue-chartjs'
+import { Pie } from 'vue-chartjs'
 
 export default {
 	name: 'CategoriesAmountChart',
-	extends: Line,
+	extends: Pie,
 	props: {
 		lists: {
 			type: Array,
@@ -17,8 +17,18 @@ export default {
 				datasets: [
 					{
 						label: 'Bought categories',
-						backgroundColor: '#51c4d3',
-						data: []
+						backgroundColor: [
+							'#542e71',
+							'#fb3640',
+							'#fdca40',
+							'#a799b7',
+							'#f39189',
+							'#78c4d4',
+							'#025955',
+							'#4a47a3',
+							'#da723c'
+						],
+						data: [50, 34, 34]
 					}
 				]
 			},
@@ -50,7 +60,10 @@ export default {
 				}
 			})
 			this.chartdata.labels = Object.keys(categoriesCounter)
-			this.chartdata.datasets[0].data = Object.values(categoriesCounter)
+			const total = Object.values(categoriesCounter).reduce((a, b) => a + b, 0)
+			this.chartdata.datasets[0].data = Object.values(
+				categoriesCounter
+			).map((value) => ((value / total) * 100).toFixed(1))
 		}
 	},
 	mounted() {
