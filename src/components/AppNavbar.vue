@@ -11,6 +11,9 @@
 			<router-link :to="{ name: 'Lists' }" class="white--text mr-4">
 				Shopping lists
 			</router-link>
+			<router-link :to="{ name: 'Statistics' }" class="white--text mr-4">
+				Statistics
+			</router-link>
 		</div>
 		<v-spacer></v-spacer>
 	</v-app-bar>
