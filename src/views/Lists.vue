@@ -21,7 +21,7 @@
 					v-if="isLoading"
 				></v-progress-circular>
 				<div v-else>
-					<v-simple-table class="py-6 lists-table" v-if="lists.length > 0">
+					<v-simple-table class="py-6 lists-table pr-4" v-if="lists.length > 0">
 						<template v-slot:default>
 							<tbody>
 								<tr v-for="(list, listIndex) in lists" :key="listIndex">
@@ -74,7 +74,7 @@
 														<td>
 															{{ product.name }}
 															<v-chip class="ma-2" color="success" outlined>
-																{{ JSON.parse(product.category)[0].name }}
+																{{ product.category[0].name }}
 															</v-chip>
 														</td>
 														<td>
@@ -98,6 +98,7 @@
 																item-text="name"
 																v-model="selectedProduct"
 																return-object
+																class="mr-4"
 															>
 															</v-select>
 														</td>
@@ -202,9 +203,17 @@ export default {
 				console.log(error)
 			})
 		axios
-			.get('https://my.api.mockaroo.com/lists.json?key=ff64ad20')
+			.get('lists.json')
 			.then((response) => {
-				this.lists = response.data
+				this.lists = response.data.map((list) => {
+					return {
+						...list,
+						products: list.products.map((product) => ({
+							...product,
+							category: JSON.parse(product.category)
+						}))
+					}
+				})
 				this.isLoading = false
 			})
 			.catch((error) => {

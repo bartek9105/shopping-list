@@ -52,7 +52,7 @@ export default {
 			this.lists.map((list) => {
 				if (list.completed) {
 					list.products.map((product) => {
-						const categoryName = JSON.parse(product.category)[0].name
+						const categoryName = product.category[0].name
 						categoriesCounter[categoryName]
 							? categoriesCounter[categoryName]++
 							: (categoriesCounter[categoryName] = 1)
