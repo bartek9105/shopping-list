@@ -12,8 +12,8 @@
 				</div>
 			</v-col>
 		</v-row>
-		<v-row class="justify-center">
-			<v-col xs="12" sm="8" md="6">
+		<v-row class="justify-center px-4">
+			<v-col xs="12" lg="6">
 				<v-progress-circular
 					indeterminate
 					color="primary"
@@ -21,7 +21,7 @@
 					v-if="isLoading"
 				></v-progress-circular>
 				<div v-else>
-					<v-simple-table class="py-6" v-if="lists.length > 0">
+					<v-simple-table class="py-6 lists-table" v-if="lists.length > 0">
 						<template v-slot:default>
 							<tbody>
 								<tr v-for="(list, listIndex) in lists" :key="listIndex">
@@ -125,6 +125,16 @@
 					</div>
 				</div>
 			</v-col>
+			<v-col xs="12" lg="6">
+				<h3 class="mb-8">Bought products amount</h3>
+				<products-amount-chart
+					v-if="lists.length > 0"
+					:lists="lists"
+					class="mb-8"
+				/>
+				<h3 class="mb-8">Bought categories amount</h3>
+				<categories-amount-chart v-if="lists.length > 0" :lists="lists" />
+			</v-col>
 		</v-row>
 		<v-snackbar v-model="showSnackbar" timeout="2000">
 			{{ snackbarText }}
@@ -134,6 +144,8 @@
 
 <script>
 import axios from 'axios'
+import ProductsAmountChart from '@/components/ProductsAmountChart'
+import CategoriesAmountChart from '@/components/CategoriesAmountChart'
 
 export default {
 	name: 'Lists',
@@ -146,6 +158,10 @@ export default {
 			showSnackbar: false,
 			snackbarText: ''
 		}
+	},
+	components: {
+		ProductsAmountChart,
+		CategoriesAmountChart
 	},
 	methods: {
 		addList() {
@@ -197,3 +213,10 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.lists-table {
+	height: 100vh;
+	overflow-y: scroll;
+}
+</style>
