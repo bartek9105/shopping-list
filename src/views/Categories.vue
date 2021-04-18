@@ -12,10 +12,10 @@
 				<div class="col-md-6 form-group">
 					<v-text-field 
 					v-model="name" 
-					label="Add extra category"> 
+					label="Add category"> 
 					</v-text-field>
 					<v-btn color="success" @click="addItem()">
-						Add category
+						Add extra category
 					</v-btn>
 				</div>
 			</div>
