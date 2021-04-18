@@ -1,45 +1,56 @@
 <template>
 	<div>
-		<form id="shopping-list">
-			<h2>Categories List</h2>
-			<table id="shopping-list-table" class="table table-condensed table-hover">
+		<v-row class="justify-center mt-4 px-4">
+			<v-col xs="12" sm="8" md="6">
+				<div class="d-flex justify-space-between align-center">
+					<div class="d-flex align-items">
+						<h2 class="mr-4">Your categories ({{ itemCategories.length }})</h2>
+					</div>
+				</div>
+						<form id="shopping-list">
+			<div class="d-flex align-center">
+				<div class="col-md-6 form-group">
+					<v-text-field 
+					v-model="name" 
+					label="Add extra category"> 
+					</v-text-field>
+					<v-btn color="success" @click="addItem()">
+						Add category
+					</v-btn>
+				</div>
+			</div>
+		</form>
+			<v-simple-table id="shopping-list-table" class="py-6">
+				<template v-slot:default>
 				<thead>
 					<tr>
 						<th>Category</th>
 						<th>Action</th>
 					</tr>
 				</thead>
-				<tr v-for="(item, index) in items" :key="index">
+				<tbody>
+					<tr v-for="(categories, index) in itemCategories" :key="index">
 					<td>
-						<span>{{ item.name }}</span>
+						<span>{{ categories.name }}</span>
 					</td>
 					<td>
-						<button
-							type="button"
-							class="btn btn-danger"
-							@click="removeItem(index)"
+						<v-btn
+						small
+						color="primary"
+						dark
+						@click="removeItem(index)"
 						>
-							<i class="fa fa-remove"></i> Delete
-						</button>
+						Delete
+						</v-btn>
+							<i class="fa fa-remove"></i> 
+			
 					</td>
 				</tr>
-			</table>
-
-			<h4>Add new item</h4>
-			<div class="row col-md-6">
-				<div class="col-md-6 form-group">
-					Name
-					<select v-model="name">
-						<option v-for="(categories, index) in itemCategories" :key="index">
-							{{ categories.name }}
-						</option>
-					</select>
-				</div>
-				<button type="button" @click="addItem" class="btn btn-primary">
-					<i class="fa fa-plus"></i> Add
-				</button>
-			</div>
-		</form>
+				</tbody>
+				</template>
+				</v-simple-table>
+			</v-col>
+		</v-row>
 	</div>
 </template>
 
@@ -52,7 +63,7 @@ export default {
 		return {
 			name: '',
 			itemCategories: [],
-			items: []
+			items: [],
 		}
 	},
 	mounted: function() {
@@ -68,13 +79,17 @@ export default {
 	},
 	methods: {
 		addItem: function() {
+			if (!this.name == ""){
 			const nameIN = this.name.trim()
-			this.items.push({
+			this.itemCategories.push({
 				name: nameIN
 			})
+			}
+			this.name = ""
+
 		},
 		removeItem: function(index) {
-			this.items.splice(index, 1)
+			this.itemCategories.splice(index, 1)
 		}
 	}
 }
