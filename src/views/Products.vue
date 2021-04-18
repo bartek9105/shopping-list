@@ -41,7 +41,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(product, index) in filteredProducts" :key="index">
+								<tr
+									v-for="(product, index) in filteredProducts"
+									:key="index"
+									@click="goToProduct(product.product_id)"
+								>
 									<td>
 										{{ product.name }}
 										<v-chip class="ma-2" color="success" outlined>
@@ -130,6 +134,9 @@ export default {
 			this.products.splice(index, 1)
 			this.snackbarText = 'Product deleted'
 			this.showSnackbar = true
+		},
+		goToProduct(productId) {
+			this.$router.push({ name: 'ProductDetails', params: { id: productId } })
 		}
 	},
 	computed: {
@@ -142,4 +149,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+tr {
+	cursor: pointer;
+}
+</style>
