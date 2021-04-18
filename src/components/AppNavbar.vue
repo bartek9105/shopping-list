@@ -22,8 +22,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 a {
 	text-decoration: none;
+}
+h3 {
+	display: none;
+	@media (min-width: 768px) {
+		display: block;
+	}
 }
 </style>
