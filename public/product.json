@@ -1,0 +1,11 @@
+{
+  "product_id": 1,
+  "name": "Salt - Sea",
+  "description": "In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.",
+  "category": [
+    {
+    "id": 6,
+    "name": "meat"
+    }
+  ]
+}

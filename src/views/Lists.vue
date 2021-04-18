@@ -33,12 +33,22 @@
 										:class="{ 'green lighten-5': list.completed }"
 									>
 										<v-card-title>
-											<v-text-field
-												v-model="list.name"
-												counter="50"
-												hint="Change list name"
-												label="List name"
-											></v-text-field>
+											<div
+												class="d-flex justify-space-between align-center flex-grow-1"
+											>
+												<v-text-field
+													v-model="list.name"
+													counter="50"
+													hint="Change list name"
+													label="List name"
+													class="mr-4"
+												></v-text-field>
+												<router-link
+													:to="{ name: 'ListDetails', params: { id: list.id } }"
+												>
+													<v-btn color="primary">See details</v-btn>
+												</router-link>
+											</div>
 										</v-card-title>
 										<v-card-subtitle>
 											Created:

@@ -4,6 +4,7 @@ import Categories from '../views/Categories.vue'
 import Products from '../views/Products.vue'
 import Lists from '../views/Lists.vue'
 import ProductDetails from '../views/ProductDetails.vue'
+import ListDetails from '../views/ListDetails.vue'
 
 Vue.use(VueRouter)
 
@@ -23,12 +24,17 @@ const routes = [
     name: 'ProductDetails',
     component: ProductDetails
   },
-
   {
     path: '/lists',
     name: 'Lists',
     component: Lists
+  },
+  {
+    path: '/lists/:id',
+    name: 'ListDetails',
+    component: ListDetails
   }
+
 ]
 
 const router = new VueRouter({
