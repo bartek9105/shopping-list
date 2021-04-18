@@ -28,8 +28,13 @@ export default {
 			}
 		}
 	},
+	computed: {
+		listCompleted() {
+			return this.lists.map((list) => list.completed)
+		}
+	},
 	watch: {
-		lists: {
+		listCompleted: {
 			handler: function() {
 				this.productsStats(), this.renderChart(this.chartdata, this.options)
 			},
