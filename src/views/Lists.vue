@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<v-row class="justify-center mt-4 px-4">
-			<v-col xs="12" sm="8" md="6">
+			<v-col xs="12" lg="6">
 				<div class="d-flex justify-space-between align-center">
 					<div class="d-flex align-items">
 						<h2 class="mr-4">Your lists ({{ lists.length }})</h2>
@@ -33,20 +33,19 @@
 										:class="{ 'green lighten-5': list.completed }"
 									>
 										<v-card-title>
-											<div
-												class="d-flex justify-space-between align-center flex-grow-1"
-											>
+											<div class="d-flex flex-column flex-grow-1">
 												<v-text-field
 													v-model="list.name"
 													counter="50"
 													hint="Change list name"
 													label="List name"
-													class="mr-4"
 												></v-text-field>
 												<router-link
 													:to="{ name: 'ListDetails', params: { id: list.id } }"
 												>
-													<v-btn color="primary">See details</v-btn>
+													<v-btn color="primary" class="mb-4"
+														>See details</v-btn
+													>
 												</router-link>
 											</div>
 										</v-card-title>
@@ -80,6 +79,7 @@
 													<tr
 														v-for="(product, productIndex) in list.products"
 														:key="productIndex"
+														class="d-flex justify-space-between align-center flex-wrap mb-2 border-bottom-1"
 													>
 														<td>
 															{{ product.name }}
@@ -100,7 +100,9 @@
 															</v-btn>
 														</td>
 													</tr>
-													<tr>
+													<tr
+														class="d-flex justify-space-between align-center flex-grow-1 flex-wrap"
+													>
 														<td>
 															<v-select
 																:items="products"
@@ -108,7 +110,6 @@
 																item-text="name"
 																v-model="selectedProduct"
 																return-object
-																class="mr-4"
 															>
 															</v-select>
 														</td>

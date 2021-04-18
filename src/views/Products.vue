@@ -46,13 +46,13 @@
 									:key="index"
 									@click="goToProduct(product.product_id)"
 								>
-									<td>
+									<td class="py-2">
 										{{ product.name }}
 										<v-chip class="ma-2" color="success" outlined>
 											{{ product.category[0].name }}
 										</v-chip>
 									</td>
-									<td>
+									<td @click.stop="">
 										<v-btn
 											small
 											color="primary"
