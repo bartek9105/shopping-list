@@ -205,7 +205,7 @@ export default {
 	},
 	mounted() {
 		axios
-			.get('https://my.api.mockaroo.com/products.json?key=ff64ad20')
+			.get('products.json')
 			.then((response) => {
 				this.products = response.data
 				this.isLoading = false
@@ -214,7 +214,7 @@ export default {
 				console.log(error)
 			})
 		axios
-			.get('https://my.api.mockaroo.com/lists.json?key=ff64ad20')
+			.get('lists.json')
 			.then((response) => {
 				this.lists = response.data.map((list) => {
 					return {

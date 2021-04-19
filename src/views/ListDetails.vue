@@ -24,7 +24,7 @@
 					</div>
 				</div>
 				<div>
-					<p>
+					<p v-if="!loading">
 						Created:
 						{{ new Date(Date.parse(list.createdAt)).toDateString() }}
 					</p>
@@ -58,9 +58,7 @@ export default {
 	methods: {
 		fetchListData() {
 			axios
-				.get(
-					`https://my.api.mockaroo.com/lists/${this.$route.params.id}.json?key=ff64ad20`
-				)
+				.get('../list.json')
 				.then((listData) => {
 					this.list = listData.data
 					this.loading = false
