@@ -17,7 +17,13 @@
 						</div>
 					</div>
 				</form>
-				<v-simple-table id="shopping-list-table" class="py-6">
+				<v-progress-circular
+					indeterminate
+					color="primary"
+					class="mt-4"
+					v-if="loading"
+				></v-progress-circular>
+				<v-simple-table id="shopping-list-table" class="py-6" v-else>
 					<template v-slot:default>
 						<thead>
 							<tr>
@@ -42,6 +48,9 @@
 				</v-simple-table>
 			</v-col>
 		</v-row>
+		<v-snackbar v-model="showSnackbar" timeout="2000">
+			{{ snackbarText }}
+		</v-snackbar>
 	</div>
 </template>
 
@@ -54,15 +63,18 @@ export default {
 		return {
 			name: '',
 			itemCategories: [],
-			items: []
+			items: [],
+			loading: true,
+			showSnackbar: false,
+			snackbarText: ''
 		}
 	},
 	mounted: function() {
 		axios
-			.get('categories.json')
+			.get('https://my.api.mockaroo.com/categories.json?key=ff64ad20')
 			.then((response) => {
 				this.itemCategories = response.data
-				console.log(response)
+				this.loading = false
 			})
 			.catch((error) => {
 				console.log(error)
@@ -75,11 +87,15 @@ export default {
 				this.itemCategories.push({
 					name: nameIN
 				})
+				this.snackbarText = 'Category added'
+				this.showSnackbar = true
 			}
 			this.name = ''
 		},
 		removeItem: function(index) {
 			this.itemCategories.splice(index, 1)
+			this.snackbarText = 'Category removed'
+			this.showSnackbar = true
 		}
 	}
 }

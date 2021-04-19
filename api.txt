@@ -3,3 +3,4 @@ https://my.api.mockaroo.com/lists.json
 https://my.api.mockaroo.com/lists/1.json
 https://my.api.mockaroo.com/products.json
 https://my.api.mockaroo.com/products/1.json
+https://my.api.mockaroo.com/categories.json?key=ff64ad20
