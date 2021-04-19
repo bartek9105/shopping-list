@@ -10,6 +10,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: {
+      name: 'Lists'
+    }
+  },
+  {
     path: '/categories',
     name: 'Categories',
     component: Categories
