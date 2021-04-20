@@ -71,7 +71,7 @@ export default {
 	},
 	mounted: function() {
 		axios
-			.get('categories.json')
+			.get('https://my.api.mockaroo.com/categories.json?key=ff64ad20')
 			.then((response) => {
 				this.itemCategories = response.data
 				this.loading = false
