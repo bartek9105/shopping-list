@@ -58,9 +58,8 @@ export default {
 	methods: {
 		fetchListData() {
 			axios
-				.get(
-					`https://my.api.mockaroo.com/lists/${this.$route.params.id}.json?key=ff64ad20`
-				)
+				.get('../list.json')
+				// https://my.api.mockaroo.com/lists/${this.$route.params.id}.json?key=ff64ad20
 				.then((listData) => {
 					this.list = listData.data
 					this.loading = false

@@ -106,7 +106,8 @@ export default {
 	},
 	mounted() {
 		axios
-			.get('https://my.api.mockaroo.com/products.json?key=ff64ad20')
+			.get('products.json')
+			// https://my.api.mockaroo.com/products.json?key=ff64ad20
 			.then((response) => {
 				this.products = response.data
 				this.isLoading = false
@@ -115,7 +116,8 @@ export default {
 				console.log(error)
 			})
 		axios
-			.get('https://my.api.mockaroo.com/categories.json?key=ff64ad20')
+			.get('categories.json')
+			// https://my.api.mockaroo.com/categories.json?key=ff64ad20
 			.then((response) => {
 				this.categories = response.data
 			})

@@ -43,9 +43,8 @@ export default {
 	methods: {
 		fetchProductDetails() {
 			axios
-				.get(
-					`https://my.api.mockaroo.com/products/${this.$route.params.id}.json?key=ff64ad20`
-				)
+				.get('../product.json')
+				// https://my.api.mockaroo.com/products/${this.$route.params.id}.json?key=ff64ad20
 				.then((productData) => {
 					this.product = productData.data
 					this.loading = false
